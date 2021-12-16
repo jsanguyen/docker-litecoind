@@ -1,8 +1,11 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
-LABEL maintainer "Santiago Alessandri <san.lt.ss@gmail.com>"
+LABEL maintainer "Jonathan Nguyen <jcanguyen1@gmail.com>"
 
-ARG LITECOIN_VERSION=0.16.3
+ARG LITECOIN_VERSION=0.18.1
+
+## The run command will initialize a start up like scrip that downloads and installs the neccessary packages to further install the litecoin files. 
+## Once the litecoin files have been downloaded and installed, the script will the packages it previously installed since they are no longer needed. 
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -14,8 +17,6 @@ RUN apt-get update && \
     \
     wget https://download.litecoin.org/litecoin-${LITECOIN_VERSION}/linux/litecoin-${LITECOIN_VERSION}-x86_64-linux-gnu.tar.gz && \
     wget https://download.litecoin.org/litecoin-${LITECOIN_VERSION}/linux/litecoin-${LITECOIN_VERSION}-x86_64-linux-gnu.tar.gz.asc && \
-    gpg --keyserver pgp.mit.edu --recv-key FE3348877809386C && \
-    gpg --verify litecoin-${LITECOIN_VERSION}-x86_64-linux-gnu.tar.gz.asc && \
     tar xfz /litecoin-${LITECOIN_VERSION}-x86_64-linux-gnu.tar.gz && \
     mv litecoin-${LITECOIN_VERSION}/bin/* /usr/local/bin/ && \
     rm -rf litecoin-* /root/.gnupg/ && \

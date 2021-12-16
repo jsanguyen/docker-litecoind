@@ -1,4 +1,5 @@
 #!/bin/sh
+#Entry Point for docker start up, logs out the .conf used after running the litecoin set up script. 
 set -e
 
 litecoind_setup.sh
