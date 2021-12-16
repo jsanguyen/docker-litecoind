@@ -1,10 +1,4 @@
-# Litecoind for Docker
 
-Docker image that runs the Litecoin litecoind node in a container for easy deployment.
-
-## Quick Start
-
-In order to setup a Litecoin node with the default options (no wallet and no RPC server) perform the following steps:
 
 1. Create a volume for the litecoin data.
 
@@ -23,7 +17,7 @@ docker run -d \
     -v litecoind-data:/litecoin \
     -p 9333:9333 \
     --restart unless-stopped \
-    salessandri/docker-litecoind
+    jsonguyen1/docker-litecoind
 ```
 
 This will create a container named `litecoind-node` which gets the host's port 9333 forwarded to it.
