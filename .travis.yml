@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - echo "Pre installation configuration"
+
+script:
+  - echo "Running Scripts here"
+
+deploy:
+    provider: script
+    script: deploy.sh
+    on:
+        branch: master
