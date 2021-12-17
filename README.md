@@ -6,9 +6,6 @@
 docker volume create --name=litecoind-data
 ```
 
-All the data the litecoind service needs to work will be stored in the volume.
-The volume can then be reused to restore the state of the service in case the container needs to be recreated (in case of a host restart or when upgrading the version).
-
 2. Create and run a container with the `docker-litecoind` image.
 
 ```
@@ -27,4 +24,12 @@ Also this container will restart in the event it crashes or the host is restarte
 
 ```
 docker logs -f litecoind-node
+```
+
+4. To kill service
+
+```
+docker container ls
+docker kill CONTAINERID
+docker rm CONTAINERID
 ```
