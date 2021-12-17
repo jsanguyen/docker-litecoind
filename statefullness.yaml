@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: litecoin
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 9333
+    name: litecoinimage
+  clusterIP: None
+  selector:
+    app: nginx
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: litecoinimage
+spec:
+  serviceName: "litecoin"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: litecoin
+        image: jsonguyen1/docker-litecoind 
+        ports:
+        - containerPort: 9333
+          name: litecoinimage
+  volumeClaimTemplates:
+  - metadata:
+      name: coinvolume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+

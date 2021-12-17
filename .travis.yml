@@ -7,10 +7,20 @@ before_install:
   - echo "Pre installation configuration"
 
 script:
-  - echo "Running Scripts here"
+  - echo "Running Scripts here" 
 
 deploy:
-    provider: script
-    script: deploy.sh
-    on:
+  - provider: script
+      script: sudo docker volume create --name=litecoind-data
+      on:
+       branch: master
+  - provider: script
+      skip_cleanup: true
+      script: sudo docker run -d --name litecoind-node -v litecoind-data:/litecoin -p 9333:9333 --restart unless-stopped jsonguyen1/docker-litecoind
+      on:
+        branch: master
+  - provider: script
+      skip_cleanup: true
+      script: sudo docker logs -f litecoind-node
+      on:
         branch: master
